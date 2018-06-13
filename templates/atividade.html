@@ -1,0 +1,42 @@
+<section class="atividades">
+	
+	<header class="atividades-header">
+		<div class="row">
+			<div class="col-sm-9 col-xs-12">
+
+				<form class="form-inline" name="atividadeList">
+					<div class="form-actions">
+						<div class="input-group">
+							<input type="text" class="form-control" ng-model="atividadeInput" placeholder="Informe a Descrição" autofocus required />
+							<div class="input-group-btn">
+								<button class="btn btn-info" type="submit" ng-click="addAtividade(atividadeInput); atividadeInput = null" ng-disabled="atividadeList.$invalid">
+									<i class="fa fa-plus"></i>&nbsp;Nova Atividade
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+
+			</div>
+
+			<div class="col-sm-3 hidden-xs">
+				<input type="text" ng-model="filterAtividade" class="form-control" placeholder="Localizar atividades" />
+			</div>
+		</div>
+	</header>
+
+	<fieldset class="atividades-list">
+		<label class="atividades-list-item" ng-repeat="atividade in atividades | filter : filterAtividade">
+			<input
+			type="checkbox"
+			value="{{atividade.STATUS}}"
+			ng-checked="atividade.STATUS==2"
+			ng-click="changeStatus(atividade.ID,atividade.STATUS,atividade.DESCRICAO)"
+			class="atividades-list-cb"/>
+			<span class="atividades-list-mark"></span>
+			<span class="atividades-list-desc" ng-class="{strike:atividade.STATUS==2}">{{atividade.DESCRICAO}} <span class="date">[{{atividade.DATA | date:"MMM d"}}]</span></span> 
+			<a ng-click="deleteAtividade(atividade.ID)" class="pull-right red"><i class="fa fa-minus-circle"></i></a> 
+		</label>
+	</fieldset>	
+
+</section>
